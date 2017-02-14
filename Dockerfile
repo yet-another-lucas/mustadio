@@ -4,4 +4,4 @@ WORKDIR /
 
 COPY . /
 
-CMD npm install && npm start
+CMD npm start

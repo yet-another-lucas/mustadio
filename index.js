@@ -64,12 +64,13 @@ app.get('/notClickable', function (req, res) {
         <html>
             <body>
                 <h1 automation="halp">I am jack's obscured element</h1>
-					<form>
-						<button id="button_1" type="submit">button</button> <br />
-						<div style="padding: 100px; position: absolute; top: 0; left: 0;">I should block the button</div>						
+					<form id="form">
+						<button id="button_1" type="submit">button_1</button>
+						<div id="blocker_1" style="position: absolute; display: inline; left: 0; padding-left: 100px;">I should block the button</div>
+						<br />
+						<button id="button_2" type="submit">button_2</button> 
+						<div id="blocker_2" style="position: absolute; display: inline; left: 0; padding-left: 100px;" onClick="document.getElementById(&quot;form&quot;).removeChild(document.getElementById(&quot;blocker_2&quot;));">I should unblock the button after one click</div>
 					</form>
-					<br />
-
             </body>
         </html>
     `);

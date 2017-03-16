@@ -58,8 +58,25 @@ app.get('/loadingFor', function (req, res) {
 	}, 1000);
 });
 
+app.get('/notClickable', function (req, res) {
+    res.send(`
+        <!DOCTYPE html>
+        <html>
+            <body>
+                <h1 automation="halp">I am jack's obscured element</h1>
+					<form>
+						<button id="button_1" type="submit">button</button> <br />
+						<div style="padding: 100px; position: absolute; top: 0; left: 0;">I should block the button</div>						
+					</form>
+					<br />
+
+            </body>
+        </html>
+    `);
+});
 var server = app.listen(port, function () {
 	console.log(`Running! on http://localhost:%s`, port);
 	console.log(`Invoke like this http://localhost:%s/fields`, port)
 	console.log(`Invoke like this http://localhost:%s/slow?seconds=10`, port)
+	console.log(`Invoke like this http://localhost:%s/notClickable`, port)
 });

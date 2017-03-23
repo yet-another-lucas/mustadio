@@ -42,6 +42,32 @@ app.get('/slow', function (req, res) {
     `);
 });
 
+app.get('/wait', function (req, res) {
+    var seconds = req.query.seconds || 1;
+
+    res.send(`
+        <!DOCTYPE html>
+        <html>
+		<head>
+		<script>
+			function hide() {
+				(new Promise((resolve) => setTimeout(resolve, ${seconds*1000}))).then(() => { document.getElementById("will-vanish").style.display = "none"}
+			);}
+			function show() {
+				(new Promise((resolve) => setTimeout(resolve, ${seconds*1000}))).then(() => { document.getElementById("will-appear").style.display = "block"}
+			);}
+		</script>
+		</head>
+            <body onLoad="hide();show();">
+                <h1 automation="halp">Loading for ${seconds} second${seconds > 1 ? 's' : ''}</h1>
+				<div id="will-vanish" >I am Jack's display:none after ${seconds} seconds</div>
+				<br />
+				<div id="will-appear" style="display: none">After ${seconds} seconds I am Jack's display:block</div>
+            </body>
+        </html>
+    `);
+});
+
 
 app.get('/loadingFor', function (req, res) {
 	var startTime = Date.now();
@@ -58,6 +84,10 @@ app.get('/loadingFor', function (req, res) {
 	}, 1000);
 });
 
+//look at this to make the button and covering div always the same size, because of browser specific issues
+//http://stackoverflow.com/questions/1205159/html-css-making-two-floating-divs-the-same-height
+//http://stackoverflow.com/questions/2997767/how-do-i-keep-two-divs-that-are-side-by-side-the-same-height
+//http://stackoverflow.com/questions/16317497/make-floating-divs-the-same-height
 app.get('/notClickable', function (req, res) {
     res.send(`
         <!DOCTYPE html>
@@ -75,9 +105,11 @@ app.get('/notClickable', function (req, res) {
         </html>
     `);
 });
+
 var server = app.listen(port, function () {
 	console.log(`Running! on http://localhost:%s`, port);
 	console.log(`Invoke like this http://localhost:%s/fields`, port)
 	console.log(`Invoke like this http://localhost:%s/slow?seconds=10`, port)
 	console.log(`Invoke like this http://localhost:%s/notClickable`, port)
+	console.log(`Invoke like this http://localhost:%s/wait?seconds=5`, port)
 });

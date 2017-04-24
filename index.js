@@ -1,5 +1,7 @@
 var express = require('express');
+var cookieParser = require('cookie-parser')
 var app = express();
+app.use(cookieParser())
 var port = 3000;
 
 app.get('/fields', function (req, res) {
@@ -104,6 +106,35 @@ app.get('/loadingFor', function (req, res) {
 	}, 1000);
 });
 
+app.get('/cookies', function (req, res) {
+	//make a default cookie
+	default_cookie_name = "IAmJacksDefaultCookie";
+	default_cookie_value = "i am jack's cookie value";
+	res.cookie(default_cookie_name, default_cookie_value,{ maxAge: 900000, httpOnly: true, signed: false });
+
+	//show all cookies
+	tabulated_cookies = []
+	for (var cookie in req.cookies){
+		tabulated_cookies.push("<tr id=" + cookie + "><td>" + cookie + "</td><td>" + req.cookies[cookie] + "</td></tr>")
+	}
+
+	res.send(`
+        <!DOCTYPE html>
+        <html>
+		<head>
+		</head>
+            <body>
+                <h1 automation="halp">I am Jack's Cookie</h1>
+				<table>
+				${tabulated_cookies.join("")}	
+				</table>
+            </body>
+
+        </html>
+    `);
+})
+
+
 //look at this to make the button and covering div always the same size, because of browser specific issues
 //http://stackoverflow.com/questions/1205159/html-css-making-two-floating-divs-the-same-height
 //http://stackoverflow.com/questions/2997767/how-do-i-keep-two-divs-that-are-side-by-side-the-same-height
@@ -132,4 +163,5 @@ var server = app.listen(port, function () {
 	console.log(`Invoke like this http://localhost:%s/slow?seconds=10`, port)
 	console.log(`Invoke like this http://localhost:%s/notClickable`, port)
 	console.log(`Invoke like this http://localhost:%s/wait?seconds=5`, port)
+	console.log(`Invoke like this http://localhost:%s/cookies`, port)
 });

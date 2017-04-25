@@ -115,7 +115,7 @@ app.get('/cookies', function (req, res) {
 	//show all cookies
 	tabulated_cookies = []
 	for (var cookie in req.cookies){
-		tabulated_cookies.push("<tr id=" + cookie + "><td>" + cookie + "</td><td>" + req.cookies[cookie] + "</td></tr>")
+		tabulated_cookies.push("<tr id=" + cookie + "><td role=\"name\">" + cookie + "</td><td role=\"value\">" + req.cookies[cookie] + "</td></tr>")
 	}
 
 	res.send(`

@@ -109,7 +109,7 @@ app.get('/loadingFor', function (req, res) {
 app.get('/cookies', function (req, res) {
 	//make a default cookie
 	default_cookie_name = "IAmJacksDefaultCookie";
-	default_cookie_value = "i am jack's cookie value";
+	default_cookie_value = "i_am_jacks_cookie_value";
 	res.cookie(default_cookie_name, default_cookie_value,{ maxAge: 900000, httpOnly: true, signed: false });
 
 	//show all cookies

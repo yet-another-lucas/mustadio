@@ -192,6 +192,33 @@ app.get('/alert', function (req, res) {
 	`);
 });
 
+app.get('/hover', function (req, res) {
+	res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+      <style>
+        #will-appear {
+            display: none;
+        }
+            
+        a:hover + #will-appear {
+            display: block;
+        }
+      </style>
+    </head>
+    <body>
+      <h1 automation="halp">Hover Action</h1>
+      <br />
+      <div id="content">
+        <a id="hover-target">I am Jack's hover action</a>
+          <div id="will-appear">I am Jack's smirking div</div>
+      </div>
+    </body>
+    </html>
+	`);
+});
+
 var server = app.listen(port, function () {
 	console.log(`Running! on http://localhost:%s`, port);
 	console.log(`Invoke like this http://localhost:%s/fields`, port)
@@ -200,4 +227,5 @@ var server = app.listen(port, function () {
 	console.log(`Invoke like this http://localhost:%s/wait?seconds=5`, port)
 	console.log(`Invoke like this http://localhost:%s/cookies`, port)
   console.log(`Invoke like this http://localhost:%s/alert`, port)
+  console.log(`Invoke like this http://localhost:%s/hover`, port)
 });

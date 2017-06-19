@@ -126,7 +126,7 @@ app.get('/cookies', function (req, res) {
       <body>
         <h1 automation="halp">I am Jack's Cookie</h1>
         <table>
-          ${tabulated_cookies.join("")}	
+          ${tabulated_cookies.join("")}
         </table>
       </body>
     </html>
@@ -148,8 +148,10 @@ app.get('/notClickable', function (req, res) {
           <button id="button_1" type="submit">button_1</button>
           <div id="blocker_1" style="position: absolute; display: inline; left: 0; padding-left: 100px;">I should block the button</div>
           <br />
-          <button id="button_2" type="submit">button_2</button> 
+          <button id="button_2" type="submit">button_2</button>
           <div id="blocker_2" style="position: absolute; display: inline; left: 0; padding-left: 100px;" onClick="document.getElementById(&quot;form&quot;).removeChild(document.getElementById(&quot;blocker_2&quot;));">I should unblock the button after one click</div>
+          <br />
+          <button id="button_3" type="submit" disabled>no click for you</button>
         </form>
       </body>
       </html>
@@ -201,7 +203,7 @@ app.get('/hover', function (req, res) {
         #will-appear {
             display: none;
         }
-            
+
         a:hover + #will-appear {
             display: block;
         }

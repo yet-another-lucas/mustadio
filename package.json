@@ -6,7 +6,7 @@
   "scripts": {
     "prestart": "npm install",
     "start": "node index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha tests/*.test.js"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +14,9 @@
   "dependencies": {
     "cookie-parser": "^1.4.3",
     "express": "^4.14.0"
+  },
+  "devDependencies": {
+    "mocha": "^3.5.3",
+    "supertest": "^3.0.0"
   }
 }

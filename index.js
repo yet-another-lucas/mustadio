@@ -30,3 +30,5 @@ var server = app.listen(port, function () {
   console.log(`Invoke like this http://localhost:%s/range?min=100&max=1000&defaultValue=500`, port)
   console.log(`Invoke like this http://localhost:%s/buttons-links`, port)
 });
+
+module.exports = app;

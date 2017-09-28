@@ -306,7 +306,7 @@ app.get('/dropdown', function (req, res) {
     <html>
       <head>
           <meta charset="utf-8">
-          <title>Duplicate button/link text</title>
+          <title>Dropdown</title>
           <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
           <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>

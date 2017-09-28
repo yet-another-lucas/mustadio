@@ -5,7 +5,7 @@ app.use(cookieParser())
 var port = 3000;
 
 app.get('/fields', function (req, res) {
-    res.send(`
+  res.send(`
       <!DOCTYPE html>
       <html>
       <body>
@@ -31,9 +31,9 @@ app.get('/fields', function (req, res) {
 });
 
 app.get('/slow', function (req, res) {
-    var seconds = req.query.seconds || 1;
+  var seconds = req.query.seconds || 1;
 
-    res.send(`
+  res.send(`
       <!DOCTYPE html>
       <html>
       <body>
@@ -45,18 +45,18 @@ app.get('/slow', function (req, res) {
 });
 
 app.get('/wait', function (req, res) {
-    var seconds = req.query.seconds || 1;
+  var seconds = req.query.seconds || 1;
 
-    res.send(`
+  res.send(`
       <!DOCTYPE html>
       <html>
       <head>
         <script>
           function hide() {
-            (new Promise((resolve) => setTimeout(resolve, ${seconds*1000}))).then(() => { document.getElementById("will-vanish").style.display = "none"}
+            (new Promise((resolve) => setTimeout(resolve, ${seconds * 1000}))).then(() => { document.getElementById("will-vanish").style.display = "none"}
           );}
           function show() {
-            (new Promise((resolve) => setTimeout(resolve, ${seconds*1000}))).then(() => { document.getElementById("will-appear").style.display = "block"}
+            (new Promise((resolve) => setTimeout(resolve, ${seconds * 1000}))).then(() => { document.getElementById("will-appear").style.display = "block"}
           );}
         </script>
       </head>
@@ -71,9 +71,9 @@ app.get('/wait', function (req, res) {
 });
 
 app.get('/consoleError', function (req, res) {
-    var seconds = req.query.seconds || 1;
+  var seconds = req.query.seconds || 1;
 
-    res.send(`
+  res.send(`
       <!DOCTYPE html>
       <html>
       <head>
@@ -92,33 +92,33 @@ app.get('/consoleError', function (req, res) {
 });
 
 app.get('/loadingFor', function (req, res) {
-	var startTime = Date.now();
-	var wait = (req.query.seconds) ? req.query.seconds * 1000 : 1000 * 60;
+  var startTime = Date.now();
+  var wait = (req.query.seconds) ? req.query.seconds * 1000 : 1000 * 60;
 
-	var intervalID = setInterval(function () {
-		var endTime = Date.now();
-		var timeElapsed = endTime - startTime;
+  var intervalID = setInterval(function () {
+    var endTime = Date.now();
+    var timeElapsed = endTime - startTime;
 
-		if (timeElapsed > wait) {
-			res.send({ hello: 'there', startTime, endTime });
-			return clearInterval(intervalID);
-		}
-	}, 1000);
+    if (timeElapsed > wait) {
+      res.send({hello: 'there', startTime, endTime});
+      return clearInterval(intervalID);
+    }
+  }, 1000);
 });
 
 app.get('/cookies', function (req, res) {
-	//make a default cookie
-	default_cookie_name = "IAmJacksDefaultCookie";
-	default_cookie_value = "i_am_jacks_cookie_value";
-	res.cookie(default_cookie_name, default_cookie_value,{ maxAge: 900000, httpOnly: true, signed: false });
+  //make a default cookie
+  default_cookie_name = "IAmJacksDefaultCookie";
+  default_cookie_value = "i_am_jacks_cookie_value";
+  res.cookie(default_cookie_name, default_cookie_value, {maxAge: 900000, httpOnly: true, signed: false});
 
-	//show all cookies
-	tabulated_cookies = []
-	for (var cookie in req.cookies){
-		tabulated_cookies.push("<tr id=" + cookie + "><td role=\"name\">" + cookie + "</td><td role=\"value\">" + req.cookies[cookie] + "</td></tr>")
-	}
+  //show all cookies
+  tabulated_cookies = []
+  for (var cookie in req.cookies) {
+    tabulated_cookies.push("<tr id=" + cookie + "><td role=\"name\">" + cookie + "</td><td role=\"value\">" + req.cookies[cookie] + "</td></tr>")
+  }
 
-	res.send(`
+  res.send(`
     <!DOCTYPE html>
     <html>
     <head>
@@ -139,7 +139,7 @@ app.get('/cookies', function (req, res) {
 //http://stackoverflow.com/questions/2997767/how-do-i-keep-two-divs-that-are-side-by-side-the-same-height
 //http://stackoverflow.com/questions/16317497/make-floating-divs-the-same-height
 app.get('/notClickable', function (req, res) {
-    res.send(`
+  res.send(`
       <!DOCTYPE html>
       <html>
       <body>
@@ -160,7 +160,7 @@ app.get('/notClickable', function (req, res) {
 
 //check out this gem https://jsfiddle.net/pwdst/rf3nrnzo/
 app.get('/theStaleMaker', function (req, res) {
-	res.send(`
+  res.send(`
     <!DOCTYPE html>
     <html>
       <body>
@@ -181,7 +181,7 @@ app.get('/theStaleMaker', function (req, res) {
 
 //check out this gem https://jsfiddle.net/pwdst/rf3nrnzo/
 app.get('/alert', function (req, res) {
-	res.send(`
+  res.send(`
     <!DOCTYPE html>
     <html>
       <body>
@@ -195,7 +195,7 @@ app.get('/alert', function (req, res) {
 });
 
 app.get('/hover', function (req, res) {
-	res.send(`
+  res.send(`
     <!DOCTYPE html>
     <html>
     <head>
@@ -300,15 +300,34 @@ app.get('/buttons-links', function (req, res) {
   `);
 });
 
+app.get('/hidden', function (req, res) {
+  res.send(`
+      <!DOCTYPE html>
+      <html>
+      <head>
+          <meta charset="utf-8">
+          <title>Hidden div</title>
+      </head>
+      <body>
+      <div hidden>
+          This is a hidden element
+      </div>
+      </body>
+      </html>
+  `);
+});
+
+
 var server = app.listen(port, function () {
-	console.log(`Running! on http://localhost:%s`, port);
-	console.log(`Invoke like this http://localhost:%s/fields`, port)
-	console.log(`Invoke like this http://localhost:%s/slow?seconds=10`, port)
-	console.log(`Invoke like this http://localhost:%s/notClickable`, port)
-	console.log(`Invoke like this http://localhost:%s/wait?seconds=5`, port)
-	console.log(`Invoke like this http://localhost:%s/cookies`, port)
+  console.log(`Running! on http://localhost:%s`, port);
+  console.log(`Invoke like this http://localhost:%s/fields`, port)
+  console.log(`Invoke like this http://localhost:%s/slow?seconds=10`, port)
+  console.log(`Invoke like this http://localhost:%s/notClickable`, port)
+  console.log(`Invoke like this http://localhost:%s/wait?seconds=5`, port)
+  console.log(`Invoke like this http://localhost:%s/cookies`, port)
   console.log(`Invoke like this http://localhost:%s/alert`, port)
   console.log(`Invoke like this http://localhost:%s/hover`, port)
   console.log(`Invoke like this http://localhost:%s/range?min=100&max=1000&defaultValue=500`, port)
   console.log(`Invoke like this http://localhost:%s/buttons-links`, port)
+  console.log(`Invoke like this http://localhost:%s/hidden`, port)
 });

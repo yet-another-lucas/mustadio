@@ -4,7 +4,7 @@ const app = express();
 app.use(cookieParser())
 const port = 3000;
 
-app.get('/fields', function (req, res) {
+app.get('/fields',  (req, res) => {
   res.send(`
       <!DOCTYPE html>
       <html>
@@ -30,7 +30,7 @@ app.get('/fields', function (req, res) {
     `);
 });
 
-app.get('/slow', function (req, res) {
+app.get('/slow', (req, res) => {
   const seconds = req.query.seconds || 1;
 
   res.send(`
@@ -44,7 +44,7 @@ app.get('/slow', function (req, res) {
     `);
 });
 
-app.get('/wait', function (req, res) {
+app.get('/wait', (req, res) => {
   const seconds = req.query.seconds || 1;
 
   res.send(`
@@ -70,7 +70,7 @@ app.get('/wait', function (req, res) {
     `);
 });
 
-app.get('/consoleError', function (req, res) {
+app.get('/consoleError', (req, res) => {
   const seconds = req.query.seconds || 1;
 
   res.send(`
@@ -91,7 +91,7 @@ app.get('/consoleError', function (req, res) {
     `);
 });
 
-app.get('/loadingFor', function (req, res) {
+app.get('/loadingFor', (req, res) => {
   const startTime = Date.now();
   const wait = (req.query.seconds) ? req.query.seconds * 1000 : 1000 * 60;
 
@@ -106,7 +106,7 @@ app.get('/loadingFor', function (req, res) {
   }, 1000);
 });
 
-app.get('/cookies', function (req, res) {
+app.get('/cookies', (req, res) => {
   //make a default cookie
   default_cookie_name = "IAmJacksDefaultCookie";
   default_cookie_value = "i_am_jacks_cookie_value";
@@ -138,7 +138,7 @@ app.get('/cookies', function (req, res) {
 //http://stackoverflow.com/questions/1205159/html-css-making-two-floating-divs-the-same-height
 //http://stackoverflow.com/questions/2997767/how-do-i-keep-two-divs-that-are-side-by-side-the-same-height
 //http://stackoverflow.com/questions/16317497/make-floating-divs-the-same-height
-app.get('/notClickable', function (req, res) {
+app.get('/notClickable', (req, res) => {
   res.send(`
       <!DOCTYPE html>
       <html>
@@ -159,7 +159,7 @@ app.get('/notClickable', function (req, res) {
 });
 
 //check out this gem https://jsfiddle.net/pwdst/rf3nrnzo/
-app.get('/theStaleMaker', function (req, res) {
+app.get('/theStaleMaker', (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <html>
@@ -180,7 +180,7 @@ app.get('/theStaleMaker', function (req, res) {
 });
 
 //check out this gem https://jsfiddle.net/pwdst/rf3nrnzo/
-app.get('/alert', function (req, res) {
+app.get('/alert', (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <html>
@@ -194,7 +194,7 @@ app.get('/alert', function (req, res) {
 	`);
 });
 
-app.get('/hover', function (req, res) {
+app.get('/hover', (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <html>
@@ -221,7 +221,7 @@ app.get('/hover', function (req, res) {
 	`);
 });
 
-app.get('/range', function (req, res) {
+app.get('/range', (req, res) => {
   const min = req.query.min || 1;
   const max = req.query.max || 100;
   const default_value = req.query.defaultValue || 50;
@@ -253,7 +253,7 @@ app.get('/range', function (req, res) {
   `);
 });
 
-app.get('/buttons-links', function (req, res) {
+app.get('/buttons-links', (req, res) => {
   res.send(`
     <!DOCTYPE html>
     <html>
@@ -300,7 +300,7 @@ app.get('/buttons-links', function (req, res) {
   `);
 });
 
-app.get('/hidden', function (req, res) {
+app.get('/hidden', (req, res) => {
   res.send(`
       <!DOCTYPE html>
       <html>
@@ -318,7 +318,7 @@ app.get('/hidden', function (req, res) {
 });
 
 
-const server = app.listen(port, function () {
+const server = app.listen(port, () => {
   console.log(`Running! on http://localhost:%s`, port);
   console.log(`Invoke like this http://localhost:%s/fields`, port)
   console.log(`Invoke like this http://localhost:%s/slow?seconds=10`, port)

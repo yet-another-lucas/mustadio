@@ -300,6 +300,45 @@ app.get('/buttons-links', (req, res) => {
   `);
 });
 
+app.get('/dropdown', function (req, res) {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <head>
+          <meta charset="utf-8">
+          <title>Dropdown</title>
+          <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+          <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+      </head>
+      <body>
+        <h2>Dropdown</h1>
+
+        <div>
+          <span>Default select</span>
+          <select name="default-select">
+            <option value="1">Option one</option>
+            <option value="2">Option two</option>
+            <option value="3">Option three</option>
+          </select>
+        </div>
+
+        <div>
+          <span>Select2</span>
+          <select class="select2" name="default-select">
+            <option value="1">Option one</option>
+            <option value="2">Option two</option>
+            <option value="3">Option three</option>
+          </select>
+        </div>
+        <script>
+        $('.select2').select2();
+        </script>
+      </body>
+    </html>
+  `);
+});
+
 app.get('/hidden', (req, res) => {
   res.send(`
       <!DOCTYPE html>
@@ -329,5 +368,6 @@ const server = app.listen(port, () => {
   console.log(`Invoke like this http://localhost:%s/hover`, port)
   console.log(`Invoke like this http://localhost:%s/range?min=100&max=1000&defaultValue=500`, port)
   console.log(`Invoke like this http://localhost:%s/buttons-links`, port)
+  console.log(`Invoke like this http://localhost:%s/dropdown`, port)
   console.log(`Invoke like this http://localhost:%s/hidden`, port)
 });

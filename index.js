@@ -416,6 +416,45 @@ app.get('/home', (req, res) => {
 	`);
 });
 
+app.get('/vanilla-table', (req, res) => {
+  //A page with an undecorated table
+  hay_stack = []
+  var bone = "<tr><td><a>Needle</a></td><td>Crewel</td><td>14 Milliners 3/9</td><td>Bone</td><td><span>$0.99</span></td></tr>";
+  var wood = "<tr><td><a>Needle</a></td><td>Crochet</td><td>16 Milliners 3/9</td><td>Wood</td><td><span>$19.99</span></td></tr>";
+  var gold = "<tr><td><a>Needle</a></td><td>Bobkin</td><td>6 Milliners 3/9</td><td>Gold</td><td><span>$199.99</span></td></tr>";
+  var hay =  "<tr><td><a>Hay</a></td><td>Fodder</td><td>1 Bale</td><td>Alfalfa</td><td><span>$9.99</span></td></tr>";
+  var needles = [bone, wood, gold];
+  hidden_locations = [(Math.floor(Math.random() * 100) + 1),(Math.floor(Math.random() * 100) + 1),(Math.floor(Math.random() * 100) + 1)];
+  for (var i = 0; i < 100; i++) {
+    if (hidden_locations.indexOf(i) > -1) {
+      hay_stack.push(needles.pop())
+    }
+    else {
+      hay_stack.push(hay)
+    }
+  }
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+    </head>
+      <body>
+        <h1 automation="halp">I am Jack's Award Winning Table</h1>
+        <div>This 100 row table has 97 entries for hay and 3 entries for needles shuffled on page load.</div>
+        <div>Attempt to find the price of the gold needle.</div>
+        <table>
+          <thead>
+            <tr><th>Material</th><th>Purpose</th><th>Quantity</th><th>Variety</th><th>Price</th></tr>
+          </thead>
+          <tbody>
+            ${hay_stack.join("")}
+          </tbody>
+        </table>
+      </body>
+    </html>
+    `);
+});
+
 const server = app.listen(port, () => {
   console.log(`Running! on http://localhost:%s`, port);
   console.log(`Invoke like this http://localhost:%s/fields`, port)
@@ -429,5 +468,6 @@ const server = app.listen(port, () => {
   console.log(`Invoke like this http://localhost:%s/buttons-links`, port)
   console.log(`Invoke like this http://localhost:%s/dropdown`, port)
   console.log(`Invoke like this http://localhost:%s/hidden`, port)
-  console.log(`Invoke like this http://localhost:%s//ephemeral-tags`, port)
+  console.log(`Invoke like this http://localhost:%s/ephemeral-tags`, port)
+  console.log(`Invoke like this http://localhost:%s/vanilla-table`, port)
 });

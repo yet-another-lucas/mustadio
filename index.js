@@ -22,6 +22,7 @@ app.get('/fields',  (req, res) => {
           <input id="input_9" type="text" value="flob">input_9</input> <br />
           <input id="input_10" type="text">input_10</input> <br />
           <input id="input_11" type="text">input_11</input> <br />
+          <input id="input_12" type="file">input_12</input> <br />
           <input id="input_submit" type="submit">input_submit</input> <br />
           <input id="input_disabled" type="text" disabled>input_disabled</input> <br />
         </form>
@@ -125,6 +126,7 @@ app.get('/cookies', (req, res) => {
     </head>
       <body>
         <h1 automation="halp">I am Jack's Cookie</h1>
+        <div>Refresh if you don't see it at first</div>
         <table>
           ${tabulated_cookies.join("")}
         </table>
@@ -355,7 +357,64 @@ app.get('/hidden', (req, res) => {
       </html>
   `);
 });
+app.get('/ephemeral-tags', (req, res) => {
+  //an element that blinks in and out of existence
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <script language="javascript">
+        function alpha() {
+            var peekaboo = document.createElement('marquee');
+            const lines = ["I want to tell you about the time I almost died.", "All those moments will be lost in time, like tears in rain", "Coffee’s for closers only.", "I live in the American Gardens Building on West 81st Street on the 11th floor.", "Screws fall out all the time, the world is an imperfect place. ", "You like Patsy Cline? I just love her. I wonder how come she don't put out no more new records.", "I like to remember things my own way.", "First of all to understand what happened to killer, you gotta understand who killer the dog was."];
+            const rando = lines[Math.floor(Math.random() * lines.length)];
+            document.getElementById("body").appendChild(peekaboo);
+            peekaboo.textContent = rando;
+            var time_to_die = (Math.floor(Math.random() * 10) + 5) * 1000  
+            console.log('tag is created, the tag should disappear in ' + time_to_die / 1000 + ' seconds');
+            document.querySelector("span.label").textContent = "You only have (" + (time_to_die / 1000) + " seconds) for it -> "
+            setTimeout(omega, time_to_die);
+        }
+        function omega() {
+          var marquee = document.getElementsByTagName("marquee")[0];
+          marquee.remove();
+        }
+        window.onload = (event) => {
+          var time_to_live = (Math.floor(Math.random() * 10) + 1) * 1000  
+          setTimeout(alpha, time_to_live);
+          console.log('page is fully loaded, the tag should appear in ' + time_to_live / 1000 + ' seconds');
+          document.querySelector("span.label").textContent = "Wait (" + (time_to_live / 1000) + " seconds) for it -> "
+        };
+      </script>
+    </head>
+      <body>
+        <h1 automation="halp">I am Jack's Ephemera</h1>
+        <div id="body">
+          <span class="label"></span>
+        </div>
+      </body>
+    </html>
+    `);
+})
 
+// TODO: make this complete and put it on every page somehow
+// https://keyholesoftware.com/2019/04/08/part-2-navigation%E2%80%8B-node-express/
+app.get('/home', (req, res) => {
+  res.send(`
+    <!DOCTYPE html>
+    <html>
+      <body>
+        <h1 automation="halp">Home</h1>
+        <div>
+        <a href="/fields">fields</a>
+        <a href="/slow?seconds=10">slow</a>
+        <a href="/notClickable">notClickable</a>
+        <a href="/wait?seconds=5">/wait</a>
+        </div>
+      </body>
+    </html>
+	`);
+});
 
 const server = app.listen(port, () => {
   console.log(`Running! on http://localhost:%s`, port);
@@ -370,4 +429,5 @@ const server = app.listen(port, () => {
   console.log(`Invoke like this http://localhost:%s/buttons-links`, port)
   console.log(`Invoke like this http://localhost:%s/dropdown`, port)
   console.log(`Invoke like this http://localhost:%s/hidden`, port)
+  console.log(`Invoke like this http://localhost:%s//ephemeral-tags`, port)
 });
